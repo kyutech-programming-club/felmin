@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'diary.dart';
 
 void main() => runApp(MyApp());
 
@@ -55,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 color: Colors.white,
+                child: new Diary(),
               ),
             ]
         ),
