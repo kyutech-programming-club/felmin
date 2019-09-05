@@ -23,7 +23,10 @@ class _Display extends State<Display> {
   }
   createListView(String collection,String field) {
     return StreamBuilder(
-      stream: Firestore.instance.collection(collection).snapshots(),
+      stream: Firestore.instance
+                       .collection(collection)
+                       .orderBy('timestamp', descending: true)
+                       .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         // エラーの場合
         if (snapshot.hasError) {
@@ -38,7 +41,8 @@ class _Display extends State<Display> {
             return ListView(
               children: snapshot.data.documents.map((DocumentSnapshot document) {
                 return new ListTile(
-                  title: new Text(document[field]),
+                  title: new Text(document['timestamp']),
+                  subtitle: new Text(document[field]),
                 );
               }).toList(),
             );
