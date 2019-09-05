@@ -2,36 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Display extends StatefulWidget {
-//  final String Collection;
-//  final String Field;
-//
-//  Display({
-//    this.Collection,
-//    this.Field
-//  }): super();
+  final String Collection;
+  final String Field;
+
+  Display({
+    this.Collection,
+    this.Field
+  }): super();
 
   @override
   _Display createState() => new _Display();
 }
 
 class _Display extends State<Display> {
-//  final String collection;
-//  final String field;
-//
-//  _Display({
-//    this.collection,
-//    this.field
-//  }): super();
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: createListView(),
+      child: createListView(widget.Collection,widget.Field),
     );
   }
-  createListView() {
+  createListView(String collection,String field) {
     return StreamBuilder(
-      stream: Firestore.instance.collection('answers').snapshots(),
+      stream: Firestore.instance.collection(collection).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         // エラーの場合
         if (snapshot.hasError) {
@@ -46,7 +38,7 @@ class _Display extends State<Display> {
             return ListView(
               children: snapshot.data.documents.map((DocumentSnapshot document) {
                 return new ListTile(
-                  title: new Text(document['text']),
+                  title: new Text(document[field]),
                 );
               }).toList(),
             );

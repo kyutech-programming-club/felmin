@@ -11,7 +11,7 @@ class _Diary extends State<Diary> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: new Display(),
+        child: new Display(Collection: 'answers',Field: 'text',),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => setState(() {
