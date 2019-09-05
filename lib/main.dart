@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'diary.dart';
+import 'image.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Container(
                 color: Colors.white,
+                child: new MyImage(imagePath: "assets/yumekawa_animal_neko.png"),
               ),
               Container(
                 color: Colors.white,
