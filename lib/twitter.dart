@@ -3,13 +3,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:oauth/oauth.dart'as oauth;
+import 'key.dart';
 
 Future<Post> fetchPost() async {
   oauth.Tokens oauthTokens = new oauth.Tokens(
-      consumerId: "",
-      consumerKey: "",
-      userId: "",
-      userKey: "");
+      consumerId: CONSUMERID,
+      consumerKey: CONSUMERKEY,
+      userId: USERID,
+      userKey: USERKEY);
 
   var streamClient = new oauth.Client(oauthTokens);
   var uri = Uri.parse("https://api.twitter.com/1.1/search/tweets.json?q=サッカー&result_type=recent&count=50");

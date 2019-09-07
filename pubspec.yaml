@@ -29,7 +29,6 @@ dependencies:
     git:
       url: git://github.com/sh4869/oauth.dart.git
       ref: develop
-  flutter_secure_storage:
 
 dev_dependencies:
   flutter_test:
