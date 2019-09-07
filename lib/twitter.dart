@@ -12,16 +12,17 @@ Future<Post> fetchPost() async {
       userKey: "");
 
   var streamClient = new oauth.Client(oauthTokens);
-  var uri = Uri.parse("https://api.twitter.com/1.1/search/tweets.json?q=サッカー&result_type=mixed&count=1");
+  var uri = Uri.parse("https://api.twitter.com/1.1/search/tweets.json?q=サッカー&result_type=recent&count=50");
   var request = new http.Request("GET", uri);
+
   var response = await streamClient.send(request);
 
   if (response.statusCode == 200) {
-    Map JSON = json.decode(await response.stream.bytesToString());
+    Map resJson = json.decode(await response.stream.bytesToString());
     //print(i);
     //print(i);
-    print(JSON);
-    return Post.fromJson(JSON);
+    print(resJson);
+    return Post.fromJson(resJson);
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
@@ -29,13 +30,14 @@ Future<Post> fetchPost() async {
 }
 
 class Post {
-  final String text;
+  final List<dynamic> text;
 
   Post({this.text});
 
   factory Post.fromJson(Map<String, dynamic> json) {
+
     return Post(
-      text: json['statuses'][0]['text'],
+      text: json['statuses'],
     );
   }
 }
@@ -63,7 +65,8 @@ class MyApp extends StatelessWidget {
             future: fetchPost(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data.text);
+                return createListView(context, snapshot);
+                //return Text(snapshot.data.text);
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
@@ -76,4 +79,21 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
+    List<dynamic> values = snapshot.data.text;
+    return new ListView.builder(
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) {
+        return new Column(
+          children: <Widget>[
+            new ListTile(
+              title: new Text(values[index]['text']),
+            ),
+            new Divider(height: 2.0,),
+          ],
+        );
+      },
+    );
+  }
+
 }
