@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'diary.dart';
-import 'image.dart';
+import 'talk.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,6 +25,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -44,23 +45,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         body: TabBarView(
-            children: <Widget>[
-              Container(
+          children: <Widget>[
+            Container(
                 color: Colors.white,
-                child: new MyImage(imagePath: "assets/yumekawa_animal_neko.png"),
-              ),
-              Container(
-                color: Colors.white,
-                //child: new TalkArea(),
-              ),
-              Container(
-                color: Colors.white,
-              ),
-              Container(
-                color: Colors.white,
-                child: new Diary(),
-              ),
-            ]
+                child: new Talk(),
+            ),
+            Container(
+              color: Colors.white,
+              //child: new TalkArea(),
+            ),
+            Container(
+              color: Colors.white,
+            ),
+            Container(
+              color: Colors.white,
+              child: new Diary(),
+            ),
+          ],
         ),
       ),
     );
