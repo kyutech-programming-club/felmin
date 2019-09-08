@@ -30,14 +30,14 @@ Future<Post> fetchPost() async {
 }
 
 class Post {
-  final List<dynamic> text;
+  final List<dynamic> tweet;
 
-  Post({this.text});
+  Post({this.tweet});
 
   factory Post.fromJson(Map<String, dynamic> json) {
 
     return Post(
-      text: json['statuses'],
+      tweet: json['statuses'],
     );
   }
 }
@@ -68,24 +68,25 @@ class Twitter extends StatelessWidget {
     );
   }
 
+
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<dynamic> values = snapshot.data.text;
+    List<dynamic> values = snapshot.data.tweet;
     return new ListView.builder(
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
         return new Card(
-          child:  Column(
-            children: <Widget>[
-              Container(
-                child: new ListTile(
-                  title: new Text(values[index]['text']),
-                ),
-                height: 300,
+            child:  Container(
+              height: 300,
+              child: Column(
+                children: <Widget>[
+                  new ListTile(
+                    title: new Text(values[index]['user']['name']),
+                    subtitle: new Text(values[index]['created_at']),
+                  ),
+                  Text(values[index]['text']),
+                ],
               ),
-
-              new Divider(height: 5.0,),
-            ],
-          ),
+            )
         );
       },
     );
