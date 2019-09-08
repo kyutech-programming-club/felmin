@@ -20,8 +20,7 @@ Future<Post> fetchPost() async {
 
   if (response.statusCode == 200) {
     Map resJson = json.decode(await response.stream.bytesToString());
-    //print(i);
-    //print(i);
+
     print(resJson);
     return Post.fromJson(resJson);
   } else {
@@ -43,43 +42,32 @@ class Post {
   }
 }
 
-void main() => runApp(MyApp(post: fetchPost()));
-
-class MyApp extends StatelessWidget {
+class Twitter extends StatelessWidget {
   final Future<Post> post;
 
-  MyApp({Key key, this.post}) : super(key: key);
+  Twitter({Key key, this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Fetch Data Example'),
-        ),
-        body: Center(
-          child: FutureBuilder<Post>(
-            future: fetchPost(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return createListView(context, snapshot);
-                //return Text(snapshot.data.text);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
+    return Scaffold(
+      body: Center(
+        child: FutureBuilder<Post>(
+          future: fetchPost(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return createListView(context, snapshot);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
 
-              // By default, show a loading spinner.
-              return CircularProgressIndicator();
-            },
-          ),
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
+          },
         ),
       ),
     );
   }
+
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
     List<dynamic> values = snapshot.data.text;
     return new ListView.builder(

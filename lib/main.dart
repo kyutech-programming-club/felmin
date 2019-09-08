@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'diary.dart';
 import 'talk.dart';
+import 'twitter.dart';
 
 void main() => runApp(MyApp());
 
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               color: Colors.white,
-              //child: new TalkArea(),
+              child: new Twitter(post: fetchPost()),
             ),
             Container(
               color: Colors.white,
