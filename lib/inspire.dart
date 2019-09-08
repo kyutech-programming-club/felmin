@@ -13,7 +13,7 @@ Future<Post> fetchPost(String keyWord) async {
       userKey: USERKEY);
 
   var streamClient = new oauth.Client(oauthTokens);
-  var uri = Uri.parse("https://api.twitter.com/1.1/search/tweets.json?q=$keyWord&result_type=recent&count=50");
+  var uri = Uri.parse("https://api.twitter.com/1.1/search/tweets.json?q=$keyWord&result_type=mixed&count=50");
   var request = new http.Request("GET", uri);
 
   var response = await streamClient.send(request);
@@ -63,8 +63,6 @@ class Twitter extends StatelessWidget {
           return CircularProgressIndicator();
         },
       );
-
-
   }
 
 
@@ -95,7 +93,7 @@ class Twitter extends StatelessWidget {
 
 class Inspire extends StatefulWidget {
 
-  final String keyWord;
+  String keyWord;
 
   Inspire({this.keyWord}): super();
 
@@ -104,17 +102,40 @@ class Inspire extends StatefulWidget {
 }
 
 class _Inspire extends State<Inspire> {
+
+  void changeKeyWord(){
+    setState(() {
+      widget.keyWord = "プロ研";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            color: Colors.red,
-            height: 30,
-            child: Text(widget.keyWord+"で検索した結果"),
+          Row(
+            //crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                flex: 4,
+                child: Container(
+                  height: 30,
+                  child: Text(widget.keyWord+"で検索した結果"),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: FloatingActionButton(
+                  onPressed: changeKeyWord,
+                  tooltip: 'tap',
+                  child: Icon(Icons.refresh),
+                ),
+              ),
+            ],
           ),
+
           SizedBox(
             height: 400,
             child: new Twitter(
