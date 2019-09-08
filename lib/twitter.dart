@@ -73,16 +73,23 @@ class Twitter extends StatelessWidget {
     return new ListView.builder(
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
-        return new Column(
-          children: <Widget>[
-            new ListTile(
-              title: new Text(values[index]['text']),
-            ),
-            new Divider(height: 2.0,),
-          ],
+        return new Card(
+          child:  Column(
+            children: <Widget>[
+              Container(
+                child: new ListTile(
+                  title: new Text(values[index]['text']),
+                ),
+                height: 300,
+              ),
+
+              new Divider(height: 5.0,),
+            ],
+          ),
         );
       },
     );
   }
 
 }
+
