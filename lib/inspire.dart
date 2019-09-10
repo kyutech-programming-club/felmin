@@ -4,8 +4,9 @@ import 'twitter.dart';
 class Inspire extends StatefulWidget {
 
   String keyWord;
+  var searchWords = new List();
 
-  Inspire({this.keyWord}): super();
+  Inspire({this.keyWord,this.searchWords}): super();
 
   @override
   _Inspire createState() => _Inspire();
@@ -15,7 +16,7 @@ class _Inspire extends State<Inspire> {
 
   void changeKeyWord(){
     setState(() {
-      widget.keyWord = "プロ研";
+      widget.keyWord = (widget.searchWords..shuffle()).first.toString();
     });
   }
 
