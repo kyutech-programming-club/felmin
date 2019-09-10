@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'diary.dart';
 import 'talk.dart';
+import 'initial_inspire.dart';
 
 void main() => runApp(MyApp());
 
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               color: Colors.white,
-              //child: new TalkArea(),
+              child: new initialInspire(),
             ),
             Container(
               color: Colors.white,
