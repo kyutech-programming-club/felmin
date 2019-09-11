@@ -12,6 +12,13 @@ class _Talk extends State<Talk> {
   String dateText;
 
   @override
+  void dispose() {
+    // ウィジェットの破棄時にコントローラーも破棄する
+    myController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
