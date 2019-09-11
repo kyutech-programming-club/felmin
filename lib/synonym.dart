@@ -18,7 +18,6 @@ Future<SuggestionPost> fetchSuggestionPost() async {
 class SuggestionPost {
   final List<dynamic> res;
 
-
   SuggestionPost({this.res});
 
   factory SuggestionPost.fromJson(List<dynamic> json) {
@@ -55,7 +54,6 @@ class MyApp extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
-
               // By default, show a loading spinner.
               return CircularProgressIndicator();
             },
