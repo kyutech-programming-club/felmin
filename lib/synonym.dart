@@ -27,12 +27,10 @@ class SuggestionPost {
   }
 }
 
-void main() => runApp(MyApp(post: fetchSuggestionPost()));
-
-class MyApp extends StatelessWidget {
+class Synonym extends StatelessWidget {
   final Future<SuggestionPost> post;
 
-  MyApp({Key key, this.post}) : super(key: key);
+  Synonym({Key key, this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

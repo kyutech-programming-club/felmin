@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'diary.dart';
 import 'talk.dart';
 import 'initial_inspire.dart';
+import 'setting.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           title: Center(
@@ -42,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Tab(icon: Icon(Icons.search,),),
               Tab(icon: Icon(Icons.lightbulb_outline,),),
               Tab(icon: Icon(Icons.calendar_today),),
+              Tab(icon: Icon(Icons.settings,),)
             ],
           ),
         ),
@@ -62,6 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white,
               child: new Diary(),
             ),
+            Container(
+              color: Colors.white,
+              child: new Setting(),
+            )
           ],
         ),
       ),
