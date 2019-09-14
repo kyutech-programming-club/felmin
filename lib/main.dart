@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'diary.dart';
-import 'talk.dart';
-import 'initial_inspire.dart';
-import 'questions.dart';
+import 'package:felmin/diary/diary.dart';
+import 'package:felmin/talk/talk.dart';
+import 'package:felmin/search/initial_inspire.dart';
+import 'package:felmin/setting/questions.dart';
 
 void main() => runApp(MyApp());
 

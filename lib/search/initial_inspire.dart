@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'inspire.dart';
+import 'package:felmin/search/inspire.dart';
 //import 'synonym.dart';
 
 class initialInspire extends StatefulWidget {
