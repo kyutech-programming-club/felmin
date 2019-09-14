@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<SuggestionPost> fetchSuggestionPost() async {
-  final response = await http.get('https://ruigigo-api.herokuapp.com/?word=サッカー');
+
+Future<SuggestionPost> fetchSuggestionPost(String keyword) async {
+  final response = await http.get('https://ruigigo-api.herokuapp.com/?word=$keyword');
 
   if (response.statusCode == 200) {
     // If server returns an OK response, parse the JSON.
@@ -20,67 +22,42 @@ class SuggestionPost {
 
   SuggestionPost({this.res});
 
-  factory SuggestionPost.fromJson(List<dynamic> json) {
+  factory SuggestionPost.fromJson(final List<dynamic> json) {
     return SuggestionPost(
-    res: json
+      res: json
     );
   }
 }
 
 class Synonym extends StatelessWidget {
-  final Future<SuggestionPost> post;
 
-  Synonym({Key key, this.post}) : super(key: key);
+  Future<SuggestionPost> post;
+  final String documentId;
+  final String keyword;
+  Synonym({Key key, this.documentId, this.keyword,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Fetch Data Example'),
-        ),
-        body: Center(
-          child: FutureBuilder<SuggestionPost>(
-            future: fetchSuggestionPost(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return createListView(context, snapshot);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              // By default, show a loading spinner.
-              return CircularProgressIndicator();
-            },
-          ),
-        ),
-      ),
-    );
+    return createFutureBuilder(documentId, keyword);
   }
 
-  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<dynamic> values = snapshot.data.res;
-    return new ListView.builder(
-      itemCount: values.length,
-      itemBuilder: (BuildContext context, int index) {
-        return new Card(
-            child:  Container(
-              child: Column(
-                children: <Widget>[
-                  new ListTile(
-                    title: new Text(values[index][0]),
-                    //subtitle: new Text(values[index][1].toString()),
-                  ),
-                  Text(values[index][1].toString()),
-                ],
-              ),
-            )
-        );
+  Widget createFutureBuilder(String documentId, String keyword) {
+    return FutureBuilder<SuggestionPost> (
+      future: fetchSuggestionPost(keyword),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print("類義語は" + snapshot.data.res[0][0]);
+          Firestore.instance
+                   .collection("synonyms")
+                   .document(documentId)
+                   .updateData({"synonym": snapshot.data.res[0][0]});
+          return documentId == "1" ? Text("保存しました") : Container();
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        // By default, show a loading spinner.
+        return Container();
       },
     );
   }
 }
-

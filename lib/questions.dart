@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'synonym.dart';
 
-class Questions extends StatelessWidget {
+class Questions extends StatefulWidget {
+  @override
+  _Questions createState() => _Questions();
+}
+
+class _Questions extends State<Questions> {
   final myController = [
     TextEditingController(),
     TextEditingController(),
     TextEditingController()
   ];
-
+  List<String> keywords;
+  bool flag = true;
 //  @override
 //  void dispose() {
 //    // ウィジェットの破棄時にコントローラーも破棄する
@@ -19,7 +26,8 @@ class Questions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return flag ?
+    Column(
       children: <Widget>[
         StreamBuilder(
           stream: Firestore.instance
@@ -47,30 +55,47 @@ class Questions extends StatelessWidget {
                   .collection("KeyWords")
                   .document((i + 1).toString())
                   .updateData({"KeyWord": myController[i].text});
+              keywords[i] = myController[i].text;
               myController[i].clear();
             }
-            Navigator.pushNamed(context, '/second-set');
+            setState(() {flag = false;});
           },
           tooltip: 'tap',
           child: Icon(Icons.update),
         ),
       ],
-    );
+    ) :
+    synonymBuilder(context, keywords);
   }
 
   Widget createListView(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
     List<DocumentSnapshot> values = snapshot.data.documents;
+    keywords = List<String>();
     return new ListView.builder(
       shrinkWrap: true,
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
+        keywords.add(values[index]["KeyWord"]);
         return TextField(
           controller: myController[index],
           autocorrect: false, // 入力し過ぎるとバグが起きるみたい。その対策。
           decoration: InputDecoration(
-            labelText: values.asMap()[index]['question'],
+            labelText: values.asMap()[index]['question'], // asMap()とは
             hintText: values.asMap()[index]["KeyWord"],
           ),
+        );
+      },
+    );
+  }
+
+  Widget synonymBuilder(BuildContext context,List<String> keywords) {
+    return new ListView.builder(
+      shrinkWrap: true,
+      itemCount: keywords.length,
+      itemBuilder: (BuildContext context, int index) {
+        return new Synonym(
+          documentId: (index + 1).toString(),
+          keyword: keywords[index],
         );
       },
     );

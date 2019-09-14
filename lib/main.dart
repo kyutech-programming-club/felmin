@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'diary.dart';
 import 'talk.dart';
 import 'initial_inspire.dart';
-import 'setting.dart';
+import 'questions.dart';
 
 void main() => runApp(MyApp());
 
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               color: Colors.white,
-              child: new Setting(),
+              child: new Questions(),
             )
           ],
         ),
