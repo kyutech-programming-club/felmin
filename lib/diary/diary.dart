@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'firebase.dart';
+import 'package:felmin/diary/firebase.dart';
 
 
 class Diary extends StatefulWidget {
