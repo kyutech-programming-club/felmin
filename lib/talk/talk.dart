@@ -21,42 +21,45 @@ class _Talk extends State<Talk> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: Colors.white,
-            child: new MyImage(imagePath: "assets/yumekawa_animal_neko.png"),
-          ),
-          Row(
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: TextField(
-                  controller: myController,
-                  decoration: InputDecoration(
-                      hintText: '入力してください'
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Colors.white,
+              child: new MyImage(imagePath: "assets/yumekawa_animal_neko.png"),
+            ),
+            Row(
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  flex: 4,
+                  child: TextField(
+                    controller: myController,
+                    decoration: InputDecoration(
+                        hintText: '入力してください'
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: FloatingActionButton(
-                  onPressed: () => setState(() {
-                    dateText = DateTime.now().toString();
-                    Firestore.instance.collection('answers').add({
-                      'text': '${myController.text}',
-                      'timestamp': dateText,
-                    });
-                    myController.clear();
-                  }),
-                  tooltip: 'tap',
-                  child: Icon(Icons.send),
+                Expanded(
+                  flex: 1,
+                  child: FloatingActionButton(
+                    onPressed: () => setState(() {
+                      dateText = DateTime.now().toString();
+                      Firestore.instance.collection('answers').add({
+                        'text': '${myController.text}',
+                        'timestamp': dateText,
+                      });
+                      myController.clear();
+                    }),
+                    tooltip: 'tap',
+                    child: Icon(Icons.send),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
