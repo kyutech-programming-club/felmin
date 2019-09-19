@@ -11,7 +11,7 @@ class initialInspire extends StatefulWidget {
 class _initialInspire extends State<initialInspire> {
 
   var keyWords = new List();
-  var synonyms = new List();
+  //var synonyms = new List();
   bool flag = true;
 
   @override
