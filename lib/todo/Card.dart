@@ -31,10 +31,30 @@ class CardList extends StatelessWidget {
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
         return Card(
-            child:  Container(
-              height: 50,
-              child: Text(values[index]['text']),
-            )
+          color: values[index]['checked']? Colors.green : Colors.white,
+          child:  Row(
+          children: <Widget>[
+            Expanded(
+              flex: 5,
+             child: Text(values[index]['text']),
+            ),
+            Expanded(
+              flex: 1,
+              child : FlatButton(
+                child: const Text(
+                    'Done',
+                    style: TextStyle(color: Colors.lightBlue),
+                ),
+                onPressed: () {
+                  Firestore.instance
+                           .collection("ToDoList")
+                           .document(values[index]['text'])
+                           .updateData({"checked": !values[index]['checked']});
+                },
+              ),
+            ),
+          ],
+        )
         );
       },
     );
