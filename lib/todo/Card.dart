@@ -27,6 +27,7 @@ class CardList extends StatelessWidget {
 
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
     List<DocumentSnapshot> values = snapshot.data.documents;
+    values.sort((a,b) => (a['checked'].toString()).compareTo((b['checked'].toString())));
     return new ListView.builder(
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
