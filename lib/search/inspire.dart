@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'twitter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Inspire extends StatefulWidget {
 
@@ -13,6 +14,15 @@ class Inspire extends StatefulWidget {
 }
 
 class _Inspire extends State<Inspire> {
+
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // ウィジェットの破棄時にコントローラーも破棄する
+    myController.dispose();
+    super.dispose();
+  }
 
   void changeKeyWord(){
     setState(() {
@@ -59,6 +69,7 @@ class _Inspire extends State<Inspire> {
                 Expanded(
                   flex: 4,
                   child: TextField(
+                    controller: myController,
                     decoration: InputDecoration(
                         hintText: '入力してください'
                     ),
@@ -67,6 +78,15 @@ class _Inspire extends State<Inspire> {
                 Expanded(
                   flex: 1,
                   child:  FloatingActionButton(
+                    onPressed: () {
+                      Firestore.instance.collection('ToDoList').add({
+                        'checked' : false,
+                        'text' :  myController.text,
+                      });
+                      setState(() {
+                        myController.clear();
+                      });
+                    },
                     tooltip: 'tap',
                     child: Icon(Icons.send),
                   ),
