@@ -79,10 +79,13 @@ class _Inspire extends State<Inspire> {
                   flex: 1,
                   child:  FloatingActionButton(
                     onPressed: () {
-                      Firestore.instance.collection('ToDoList').add({
-                        'checked' : false,
-                        'text' :  myController.text,
-                      });
+                      Firestore.instance
+                               .collection('ToDoList')
+                               .document(myController.text)
+                               .setData({
+                                 'checked' : false,
+                                  'text' :  myController.text,
+                               });
                       setState(() {
                         myController.clear();
                       });
