@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^0.9.13
+  flare_flutter:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -42,6 +43,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/yumekawa_animal_neko.png
+    - assets/plants_logo.flr
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

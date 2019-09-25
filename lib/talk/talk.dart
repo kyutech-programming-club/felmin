@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'flare.dart';
 
 class Talk extends StatefulWidget {
   @override
@@ -25,9 +26,10 @@ class _Talk extends State<Talk> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              color: Colors.white,
-              child: new MyImage(imagePath: "assets/yumekawa_animal_neko.png"),
+            SizedBox(
+              height: 300,
+              // child: new MyImage(imagePath: "assets/yumekawa_animal_neko.png"),
+              child: FlareImage(animation: "start",), //start or animation
             ),
             Row(
               //crossAxisAlignment: CrossAxisAlignment.stretch,
