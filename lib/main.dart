@@ -3,6 +3,7 @@ import 'package:felmin/diary/diary.dart';
 import 'package:felmin/talk/talk.dart';
 import 'package:felmin/search/initial_inspire.dart';
 import 'package:felmin/setting/questions.dart';
+import 'package:felmin/todo/todo.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      //debugShowCheckedModeBanner: false, //右上のデバックが消える
       title: 'Felemin',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
@@ -59,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               color: Colors.white,
+              child: new  Todo(),
             ),
             Container(
               color: Colors.white,
