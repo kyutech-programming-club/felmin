@@ -49,11 +49,13 @@ class _Talk extends State<Talk> {
                   flex: 1,
                   child: FloatingActionButton(
                     onPressed: () => setState(() {
-                      dateText = DateTime.now().toString();
-                      Firestore.instance.collection('answers').add({
-                        'text': '${myController.text}',
-                        'timestamp': dateText,
-                      });
+                      if(myController.text != "") {
+                        dateText = DateTime.now().toString();
+                        Firestore.instance.collection('answers').add({
+                          'text': '${myController.text}',
+                          'timestamp': dateText,
+                        });
+                      }
                       _animationController.play("animation");
                       myController.clear();
                     }),
