@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'flare.dart';
+import 'package:flare_flutter/flare_controls.dart';
 
 class Talk extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class Talk extends StatefulWidget {
 class _Talk extends State<Talk> {
   final myController = TextEditingController();
   String dateText;
+  final FlareControls _animationController = FlareControls();
 
   @override
   void dispose() {
@@ -29,7 +31,7 @@ class _Talk extends State<Talk> {
             SizedBox(
               height: 300,
               // child: new MyImage(imagePath: "assets/yumekawa_animal_neko.png"),
-              child: FlareImage(animation: "start",), //start or animation
+              child: FlareImage(animationController:_animationController),
             ),
             Row(
               //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,6 +54,7 @@ class _Talk extends State<Talk> {
                         'text': '${myController.text}',
                         'timestamp': dateText,
                       });
+                      _animationController.play("animation");
                       myController.clear();
                     }),
                     tooltip: 'tap',

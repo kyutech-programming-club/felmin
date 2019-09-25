@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controls.dart';
 
 class FlareImage extends StatefulWidget {
-  final String animation;
 
-  FlareImage({
-    this.animation
-  }): super();
+  final FlareControls animationController;
+
+  FlareImage({this.animationController}): super();
+
   @override
   _FlareImage createState() => _FlareImage();
 }
@@ -17,8 +18,9 @@ class _FlareImage extends State<FlareImage> {
     return FlareActor(
       "assets/plants_logo.flr",
       alignment:Alignment.center,
-      animation: widget.animation,
+      animation: "start",
       fit: BoxFit.contain,
+      controller: widget.animationController,
     );
   }
 }
