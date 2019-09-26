@@ -43,6 +43,7 @@ class _Talk extends State<Talk> {
                     decoration: InputDecoration(
                         hintText: '入力してください'
                     ),
+                    maxLines: null,
                   ),
                 ),
                 Expanded(
