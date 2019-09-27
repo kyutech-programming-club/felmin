@@ -88,6 +88,7 @@ class _Inspire extends State<Inspire> {
                                });
                       setState(() {
                         myController.clear();
+                        FocusScope.of(context).requestFocus(FocusNode());
                       });
                     },
                     tooltip: 'tap',

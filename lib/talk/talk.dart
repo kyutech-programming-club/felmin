@@ -59,6 +59,7 @@ class _Talk extends State<Talk> {
                       }
                       _animationController.play("animation");
                       myController.clear();
+                      FocusScope.of(context).requestFocus(FocusNode());
                     }),
                     tooltip: 'tap',
                     child: Icon(Icons.send),

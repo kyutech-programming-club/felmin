@@ -58,7 +58,10 @@ class _Questions extends State<Questions> {
               keywords[i] = myController[i].text;
               myController[i].clear();
             }
-            setState(() {flag = false;});
+            setState(() {
+              flag = false;
+              FocusScope.of(context).requestFocus(FocusNode());
+            });
           },
           tooltip: 'tap',
           child: Icon(Icons.update),
