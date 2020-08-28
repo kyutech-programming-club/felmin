@@ -82,3 +82,4 @@ felmin.iml
 .packages
 pubspec.lock
 /test/**
+lib/search/key.dart
